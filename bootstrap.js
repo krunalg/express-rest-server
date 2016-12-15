@@ -112,7 +112,7 @@ var Bootstrap = function () {
                 this.wlogger.warn('No Matching ENVIRONMENT has been found, So it has been considered as "' + serverConfig.env + '"');
             }
             /**
-             * Generating log files
+             * Generating logs directory
              */
             if (G.fs.existsSync(path.join(baseDir, 'logs', env))) {
             } else {
@@ -120,7 +120,7 @@ var Bootstrap = function () {
             }
 
             /*
-             * set port for app
+             * set env for app
              */
             G.app.set('env', G.serverCfg.env);
 
@@ -168,15 +168,18 @@ var Bootstrap = function () {
              * Serve static files
              * @type type
              */
-            G.app.use(G.express.static(path.join(baseDir, 'public')));
-            
+            G.app.use(G.express.static(baseDir + '/public'));
             
             /*
-             * request dispatcher
+             * request dispatcher to add x-powered-by header
              */
             G.app.use(function (req, res, next) {
-                res.setHeader('X-Powered-By', 'CodeByte v0.1');
+                res.setHeader('X-Powered-By', 'CodeByte v'+require("./package.json").version);
                 next();
+            });
+            
+            G.app.all('/', function (req, res) {
+                res.sendFile(baseDir + '/public/index.html');
             });
 
             /*
