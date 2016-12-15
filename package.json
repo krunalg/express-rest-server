@@ -1,6 +1,6 @@
 {
   "name": "express-rest-server",
-  "version": "0.8",
+  "version": "0.0.8",
   "description": "express-rest-server",
   "main": "app.js",
   "directories": {
