@@ -170,17 +170,22 @@ var Bootstrap = function () {
              */
             G.app.use(G.express.static(baseDir + '/public'));
             G.app.use(G.express.static(baseDir + '/'));
-            
+
             /*
              * request dispatcher to add x-powered-by header
              */
             G.app.use(function (req, res, next) {
-                res.setHeader('X-Powered-By', 'CodeByte v'+require("./package.json").version);
+                res.setHeader('X-Powered-By', 'CodeByte v' + require("./package.json").version);
                 next();
             });
-            
-            G.app.all('/*', function (req, res) {
-                res.sendFile(baseDir + '/public/index.html');
+
+            G.app.all('/*', function (req, res, next) {
+                var regex = new RegExp(/^\/service\//)
+                if (!req.path.match(regex)) {
+                    res.sendFile(baseDir + '/public/index.html');
+                }else{
+                    next();
+                }
             });
 
             /*
@@ -326,7 +331,7 @@ var Bootstrap = function () {
                             responseCode = 204;
                             break
                     }
-                    G.app[funcName]("/service"+rKey.route.toString(), function (req, res, next) {
+                    G.app[funcName]("/service" + rKey.route.toString(), function (req, res, next) {
                         if (!req.headers.authorization && G.routes['whiteList'].indexOf(rKey.route.toString()) === -1) {
                             return res.status(401).send({message: 'Unauthorized.'});
                         }
