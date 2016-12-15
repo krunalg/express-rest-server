@@ -5,7 +5,7 @@ module.exports = {
     },
     routers: {
         'home': {
-            route: '/',
+            route: '/home',
             controller: 'index',
             action: 'index',
             type: 'get'

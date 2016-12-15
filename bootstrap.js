@@ -169,6 +169,7 @@ var Bootstrap = function () {
              * @type type
              */
             G.app.use(G.express.static(baseDir + '/public'));
+            G.app.use(G.express.static(baseDir + '/'));
             
             /*
              * request dispatcher to add x-powered-by header
@@ -178,7 +179,7 @@ var Bootstrap = function () {
                 next();
             });
             
-            G.app.all('/', function (req, res) {
+            G.app.all('/*', function (req, res) {
                 res.sendFile(baseDir + '/public/index.html');
             });
 
@@ -325,7 +326,7 @@ var Bootstrap = function () {
                             responseCode = 204;
                             break
                     }
-                    G.app[funcName](rKey.route.toString(), function (req, res, next) {
+                    G.app[funcName]("/service"+rKey.route.toString(), function (req, res, next) {
                         if (!req.headers.authorization && G.routes['whiteList'].indexOf(rKey.route.toString()) === -1) {
                             return res.status(401).send({message: 'Unauthorized.'});
                         }
