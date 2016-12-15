@@ -179,6 +179,9 @@ var Bootstrap = function () {
                 next();
             });
 
+            /**
+             * serve index.html
+             */
             G.app.all('/*', function (req, res, next) {
                 var regex = new RegExp(/^\/service\//)
                 if (!req.path.match(regex)) {
