@@ -10,8 +10,8 @@ Restful backend Server.
 ### Modules
 * Every new module must be created under `/modules` directory.
 * `/modules` directory contains two sub directories `/controllers`, `/models`, `/plugins`(optional) and a module.config.js
-1
 ### Models (Database Logic)
 * Models are the wrappers for database communications.
-* Model name should be same as model name.
+### Registration of Controllers and Models
+* Each newly created controllers and models should be registered in module.config.js under 'controllers' and 'models' key.
 
