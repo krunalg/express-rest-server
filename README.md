@@ -1,6 +1,6 @@
-Rest Server
+MEAN Stack Architecture
 ============================
-Restful backend Server.
+Mean Stack Server, which has a capability of serving js(client application) built up on any framework, and It has a rest server support which will help you to create and server REST services as well.
 
 ### Getting started
 * Edit configuration `config/global.config.json` & `config/server.config.json` files with required parameters.
